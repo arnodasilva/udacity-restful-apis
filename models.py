@@ -84,7 +84,7 @@ class Request(Base):
 class Proposal(Base):
     __tablename__ = 'proposal'
 
-    id = Column(primary_key=True)
+    id = Column(Integer, primary_key=True)
     user_proposed_to = Column(Integer, nullable=False)
     user_proposed_from = Column(Integer, nullable=False)
     request_id = Column(Integer, ForeignKey('request.id'), nullable=False)
@@ -104,7 +104,7 @@ class Proposal(Base):
 class MealDate(Base):
     __tablename__ = 'mealdate'
 
-    id = Column(primary_key=True)
+    id = Column(Integer, primary_key=True)
     user_1 = Column(String, nullable=False)
     user_2 = Column(String, nullable=False)
     restaurant_name = Column(String, nullable=False)
