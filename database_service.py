@@ -6,7 +6,7 @@ from models import Base, User, Request, Proposal, MealDate
 
 class DatabaseService:
     def __init__(self):
-        engine = create_engine('sqlite:///restaurantmenu.db')
+        engine = create_engine('sqlite:///meetneat.db')
         Base.metadata.bind = engine
         DBSession = sessionmaker(bind=engine)
         self.session = DBSession()
