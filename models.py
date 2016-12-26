@@ -17,7 +17,7 @@ secret_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for x
 class User(Base):
     __tablename__ = 'user'
 
-    id = Column(Integer, primarey_key=True)
+    id = Column(Integer, primary_key=True)
     password_hash = Column(String(64))
     email = Column(String, index=True)
     picture = Column(String)
