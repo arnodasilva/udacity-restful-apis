@@ -100,6 +100,31 @@ class Proposal(Base):
             'filled': self.filled
         }
 
+
+class MealDate(Base):
+    __tablename__ = 'mealdate'
+
+    id = Column(primary_key=True)
+    user_1 = Column(String, nullable=False)
+    user_2 = Column(String, nullable=False)
+    restaurant_name = Column(String, nullable=False)
+    restaurant_address = Column(String, nullable=False)
+    restaurant_picture = Column(String)
+    meal_time = Column(String, nullable=False)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'user_1': self.user_1,
+            'user_2': self.user_2,
+            'restaurant_name': self.restaurant_name,
+            'restaurant_address': self.restaurant_address,
+            'restaurant_picture': self.restaurant_picture,
+            'meal_time': self.meal_time
+        }
+
+
 engine = create_engine('sqlite:///meetneat.db')
 
 Base.metadata.create_all(engine)
