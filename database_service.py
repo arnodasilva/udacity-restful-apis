@@ -22,6 +22,8 @@ class DatabaseService:
     def addUser(user):
         session.add(user)
         session.commit()
+        session.refresh(user)
+        return user
 
     @staticmethod
     def updateUser(user_id, user_update):
@@ -43,8 +45,10 @@ class DatabaseService:
 
     @staticmethod
     def addRequest(request):
-        session.add(request);
+        session.add(request)
         session.commit()
+        session.refresh(request)
+        return request
 
     @staticmethod
     def updateRequest(request_id, request_update):
@@ -68,6 +72,8 @@ class DatabaseService:
     def addProposal(proposal):
         session.add(proposal)
         session.commit()
+        session.refresh(proposal)
+        return proposal
 
     @staticmethod
     def updateProposal(proposal_id, proposal_update):
@@ -91,6 +97,8 @@ class DatabaseService:
     def addDate(date):
         session.add(date)
         session.commit()
+        session.refresh(date)
+        return date
 
     @staticmethod
     def updateDate(date_id, date_update):
