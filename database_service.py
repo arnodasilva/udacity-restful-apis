@@ -48,14 +48,7 @@ class DatabaseService:
 
     @staticmethod
     def updateRequest(request_id, request_update):
-        session.query(Request).filter_by(id=request_id).update({
-            Request.meal_type: request_update.meal_type,
-            Request.location_string: request_update.location_string,
-            Request.latitude: request_update.latitude,
-            Request.longitude: request_update.longitude,
-            Request.meal_time: request_update.meal_time,
-            Request.filled: request_update.filled
-        })
+        session.query(Request).filter_by(id=request_id).update(dict(request_update))
         session.commit()
 
     @staticmethod
@@ -78,12 +71,7 @@ class DatabaseService:
 
     @staticmethod
     def updateProposal(proposal_id, proposal_update):
-        session.query(Proposal).filter_by(id=proposal_id).update({
-            Proposal.user_proposed_to: proposal_update.user_proposed_to,
-            Proposal.user_proposed_from: proposal_update.user_proposed_from,
-            Proposal.request_id: proposal_update.request_id,
-            Proposal.filled: proposal_update.filled
-        })
+        session.query(Proposal).filter_by(id=proposal_id).update(dict(proposal_update))
         session.commit()
 
     @staticmethod
@@ -106,13 +94,7 @@ class DatabaseService:
 
     @staticmethod
     def updateDate(date_id, date_update):
-        session.query(MealDate).filter_by(id=date_id).update({
-            MealDate.user_1: date_update.user_1,
-            MealDate.user_2: date_update.user_2,
-            MealDate.restaurant_name: date_update.restaurant_update,
-            MealDate.restaurant_address: date_update.restaurant_address,
-            MealDate.restaurant_picture: date_update.restaurant_picture
-        })
+        session.query(MealDate).filter_by(id=date_id).update(dict(date_update))
         session.commit()
 
     @staticmethod
