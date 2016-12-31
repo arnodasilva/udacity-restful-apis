@@ -17,6 +17,11 @@ secret_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for x
 class User(Base):
     __tablename__ = 'user'
 
+    def __iter__(self):
+        _dict = self.__dict__
+        _dict.pop('_sa_instance_state', None)
+        return _dict.iteritems()
+
     id = Column(Integer, primary_key=True)
     password_hash = Column(String(64))
     email = Column(String, index=True)
@@ -57,6 +62,11 @@ class User(Base):
 class Request(Base):
     __tablename__ = 'request'
 
+    def __iter__(self):
+        _dict = self.__dict__
+        _dict.pop('_sa_instance_state', None)
+        return _dict.iteritems()
+
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     meal_type = Column(String, nullable=False)
@@ -84,6 +94,11 @@ class Request(Base):
 class Proposal(Base):
     __tablename__ = 'proposal'
 
+    def __iter__(self):
+        _dict = self.__dict__
+        _dict.pop('_sa_instance_state', None)
+        return _dict.iteritems()
+
     id = Column(Integer, primary_key=True)
     user_proposed_to = Column(Integer, nullable=False)
     user_proposed_from = Column(Integer, nullable=False)
@@ -103,6 +118,11 @@ class Proposal(Base):
 
 class MealDate(Base):
     __tablename__ = 'mealdate'
+
+    def __iter__(self):
+        _dict = self.__dict__
+        _dict.pop('_sa_instance_state', None)
+        return _dict.iteritems()
 
     id = Column(Integer, primary_key=True)
     user_1 = Column(String, nullable=False)
