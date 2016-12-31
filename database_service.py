@@ -25,15 +25,12 @@ class DatabaseService:
 
     @staticmethod
     def updateUser(user_id, user_update):
-        session.query(User).filter(id == user_id).update({
-            User.email: user_update.email,
-            User.email: user_update.picture
-        })
+        session.query(User).filter_by(id=user_id).update(dict(user_update))
         session.commit()
 
     @staticmethod
     def deleteUser(user_id):
-        session.query(User).filter(id == user_id).delete()
+        session.query(User).filter_by(id=user_id).delete()
         session.commit()
 
     @staticmethod
@@ -51,7 +48,7 @@ class DatabaseService:
 
     @staticmethod
     def updateRequest(request_id, request_update):
-        session.query(Request).filter(id == request_id).update({
+        session.query(Request).filter_by(id=request_id).update({
             Request.meal_type: request_update.meal_type,
             Request.location_string: request_update.location_string,
             Request.latitude: request_update.latitude,
@@ -63,7 +60,7 @@ class DatabaseService:
 
     @staticmethod
     def deleteRequest(request_id):
-        session.query(Request).filter(id == request_id).delete()
+        session.query(Request).filter_by(id=request_id).delete()
         session.commit()
 
     @staticmethod
@@ -81,7 +78,7 @@ class DatabaseService:
 
     @staticmethod
     def updateProposal(proposal_id, proposal_update):
-        session.query(Proposal).filter(id == proposal_id).update({
+        session.query(Proposal).filter_by(id=proposal_id).update({
             Proposal.user_proposed_to: proposal_update.user_proposed_to,
             Proposal.user_proposed_from: proposal_update.user_proposed_from,
             Proposal.request_id: proposal_update.request_id,
@@ -91,7 +88,7 @@ class DatabaseService:
 
     @staticmethod
     def deleteProposal(proposal_id):
-        session.query(Request).filter(id == proposal_id).delete()
+        session.query(Request).filter_by(id=proposal_id).delete()
         session.commit()
 
     @staticmethod
@@ -109,7 +106,7 @@ class DatabaseService:
 
     @staticmethod
     def updateDate(date_id, date_update):
-        session.query(MealDate).filter(id == date_id).update({
+        session.query(MealDate).filter_by(id=date_id).update({
             MealDate.user_1: date_update.user_1,
             MealDate.user_2: date_update.user_2,
             MealDate.restaurant_name: date_update.restaurant_update,
@@ -120,5 +117,5 @@ class DatabaseService:
 
     @staticmethod
     def deleteDate(date_id):
-        session.query(MealDate).filter(id == date_id).delete()
+        session.query(MealDate).filter_by(id=date_id).delete()
         session.commit()
