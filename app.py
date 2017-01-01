@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask import json
 from flask import request
 
@@ -21,28 +21,29 @@ def web_application_exception_mapper(error):
 @app.route('/api/v1/users')
 def getUsers():
     users = DatabaseService.getUsers()
-    return jsonify(users=[u.serialize for u in users])
+    return Helper.createSuccessResponse([u.serialize for u in users], status_code=200)
 
 
 @app.route('/api/v1/users', methods=['POST'])
 def addUser():
-    user = JSONHelper.parseJSONToObject(User, request.data)
+    user = Helper.parseJSONToObject(User, request.data)
     user.hash_password(user.password_hash)
     user_inserted = DatabaseService.addUser(user)
-    return jsonify(user=user_inserted.serialize)
+    return Helper.createSuccessResponse(user_inserted.serialize, status_code=201)
 
 
 @app.route('/api/v1/users/<int:id>', methods=['PUT'])
 def updateUser(id):
-    user = JSONHelper.parseJSONToObject(User, request.data)
-    DatabaseService.updateUser(id, user)
-    return 'User %d updated' % id
+    if DatabaseService.getUser(id):
+        user = Helper.parseJSONToObject(User, request.data)
+        user_updated = DatabaseService.updateUser(id, user)
+        return Helper.createSuccessResponse(user_updated.serialize, status_code=202)
 
 
 @app.route('/api/v1/users/<int:id>')
 def getUser(id):
     user = DatabaseService.getUser(id)
-    return jsonify(user=user.serialize)
+    return Helper.createSuccessResponse(user.serialize, status_code=200)
 
 
 if __name__ == '__main__':
