@@ -19,8 +19,9 @@ class User(Base):
 
     def __iter__(self):
         _dict = self.__dict__
-        _dict.pop('_sa_instance_state', None)
-        return _dict.iteritems()
+        _new_dict = {key: value for key, value in _dict.items()
+                     if key is not '_sa_instance_state'}
+        return _new_dict.iteritems()
 
     id = Column(Integer, primary_key=True)
     password_hash = Column(String(64))
@@ -64,8 +65,9 @@ class Request(Base):
 
     def __iter__(self):
         _dict = self.__dict__
-        _dict.pop('_sa_instance_state', None)
-        return _dict.iteritems()
+        _new_dict = {key: value for key, value in _dict.items()
+                     if key is not '_sa_instance_state'}
+        return _new_dict.iteritems()
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
@@ -96,8 +98,9 @@ class Proposal(Base):
 
     def __iter__(self):
         _dict = self.__dict__
-        _dict.pop('_sa_instance_state', None)
-        return _dict.iteritems()
+        _new_dict = {key: value for key, value in _dict.items()
+                     if key is not '_sa_instance_state'}
+        return _new_dict.iteritems()
 
     id = Column(Integer, primary_key=True)
     user_proposed_to = Column(Integer, nullable=False)
@@ -121,8 +124,9 @@ class MealDate(Base):
 
     def __iter__(self):
         _dict = self.__dict__
-        _dict.pop('_sa_instance_state', None)
-        return _dict.iteritems()
+        _new_dict = {key: value for key, value in _dict.items()
+                     if key is not '_sa_instance_state'}
+        return _new_dict.iteritems()
 
     id = Column(Integer, primary_key=True)
     user_1 = Column(String, nullable=False)
