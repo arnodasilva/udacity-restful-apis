@@ -3,12 +3,19 @@ from flask import json
 from flask import request
 
 from database_service import DatabaseService
-from json_helper import JSONHelper
-from models import User
+from helper import Helper
+from models import User, Request
+from request_inputs_validator import RequestInputsValidator
+from web_application_exception import WebApplicationException
 
 app = Flask(__name__)
 
 # CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+
+
+@app.errorhandler(WebApplicationException)
+def web_application_exception_mapper(error):
+    return Helper.createErrorResponse(error.message, error.description, status_code=error.code)
 
 
 @app.route('/api/v1/users')
