@@ -129,8 +129,8 @@ class MealDate(Base):
         return _new_dict.iteritems()
 
     id = Column(Integer, primary_key=True)
-    user_1 = Column(String, nullable=False)
-    user_2 = Column(String, nullable=False)
+    user_1 = Column(Integer, nullable=False)
+    user_2 = Column(Integer, nullable=False)
     restaurant_name = Column(String, nullable=False)
     restaurant_address = Column(String, nullable=False)
     restaurant_picture = Column(String)
