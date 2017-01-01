@@ -49,6 +49,47 @@ def getUser(id):
 @app.route('/api/v1/users', methods=['DELETE'])
 def deleteUser():
     return Helper.createSuccessResponse("User successfully deleted", status_code=202)
+
+
+@app.route('/api/v1/requests')
+def getRequests():
+    requests = DatabaseService.getRequests()
+    return Helper.createSuccessResponse([r.serialize for r in requests], status_code=200)
+
+
+@app.route('/api/v1/requests', methods=['POST'])
+def addRequest():
+    inputs = RequestInputsValidator(request)
+
+    if not inputs.validate():
+        return Helper.createErrorResponse('Validation error', inputs.errors, status_code=404)
+
+    user_request = Helper.parseJSONToObject(Request, request.data)
+    request_inserted = DatabaseService.addRequest(user_request)
+    return Helper.createSuccessResponse(request_inserted.serialize, status_code=201)
+
+
+@app.route('/api/v1/requests/<int:id>', methods=['PUT'])
+def updateRequest(id):
+    if DatabaseService.getRequest(id):
+        user_request = Helper.parseJSONToObject(Request, request.data)
+        request_updated = DatabaseService.updateRequest(id, user_request)
+        return Helper.createSuccessResponse(request_updated, status_code=202)
+
+
+@app.route('/api/v1/requests/<int:id>')
+def getRequest(id):
+    user_request = DatabaseService.getRequest(id)
+    return Helper.createSuccessResponse(user_request.serialize, status_code=200)
+
+
+@app.route('/api/v1/requests/<int:id>', methods=['DELETE'])
+def deleteRequest(id):
+    if DatabaseService.getRequest(id):
+        DatabaseService.deleteRequest(id)
+        return Helper.createSuccessResponse("Request successfully deleted")
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
