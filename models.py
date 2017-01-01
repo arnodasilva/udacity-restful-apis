@@ -25,7 +25,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     password_hash = Column(String(64))
-    email = Column(String, index=True)
+    email = Column(String, index=True, nullable=False)
     picture = Column(String)
     requests = relationship("Request", cascade="delete")
 
