@@ -10,7 +10,7 @@ schema = {
         "latitude": {"type": "string"},
         "longitude": {"type": "string"},
         "meal_time": {"type": "string"},
-        "filled": {"type": "boolean"},
+        "filled": {"type": "boolean"}
     },
     "required": [
         "user_id",
