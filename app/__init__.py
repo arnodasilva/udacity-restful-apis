@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from sqlalchemy import create_engine
 
-from app.v1.utils.database_provider import Base
+from app.v1.utils.database.database_provider import Base
 from app.v1.v1 import api_v1_bp, API_VERSION_V1
 
 

@@ -7,8 +7,8 @@ from app.v1.dates.models import Date
 from app.v1.proposals.models import Proposal
 from app.v1.requests.models import Request
 from app.v1.users.models import User
-from app.v1.utils.database_provider import Base
-from web_application_exception import WebApplicationException
+from app.v1.utils.database.database_provider import Base
+from app.v1.utils.errors.web_application_exception import WebApplicationException
 
 engine = create_engine('sqlite:///meetneat.db')
 Base.metadata.bind = engine

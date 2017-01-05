@@ -1,8 +1,8 @@
 from flask import request
 from flask_restful import Resource
 
-from app.v1.utils.database_service import DatabaseService
-from app.v1.utils.helper import Helper
+from app.v1.utils.database.database_service import DatabaseService
+from app.v1.utils.helpers.helper import Helper
 from models import User
 from validators import UserInputsValidator
 

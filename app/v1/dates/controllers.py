@@ -3,8 +3,8 @@ from flask_restful import Resource
 
 from app.v1.dates.models import Date
 from app.v1.dates.validators import DateInputsValidator
-from app.v1.utils.database_service import DatabaseService
-from app.v1.utils.helper import Helper
+from app.v1.utils.database.database_service import DatabaseService
+from app.v1.utils.helpers.helper import Helper
 
 
 class DateAPI(Resource):

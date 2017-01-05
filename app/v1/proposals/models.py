@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, Boolean
 from sqlalchemy import ForeignKey
 
-from app.v1.utils.database_provider import Base
+from app.v1.utils.database.database_provider import Base
 
 
 class Proposal(Base):

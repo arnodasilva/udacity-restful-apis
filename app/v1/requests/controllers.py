@@ -3,8 +3,8 @@ from flask_restful import Resource
 
 from app.v1.requests.models import Request
 from app.v1.requests.validators import RequestInputsValidator
-from app.v1.utils.database_service import DatabaseService
-from app.v1.utils.helper import Helper
+from app.v1.utils.database.database_service import DatabaseService
+from app.v1.utils.helpers.helper import Helper
 
 
 class RequestAPI(Resource):

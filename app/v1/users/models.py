@@ -6,7 +6,7 @@ from passlib.apps import custom_app_context as pwd_context
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from app.v1.utils.database_provider import Base
+from app.v1.utils.database.database_provider import Base
 
 secret_key = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
 

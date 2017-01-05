@@ -1,7 +1,7 @@
 from flask import json, jsonify
 from flask import make_response
 
-from web_application_exception import WebApplicationException
+from app.v1.utils.errors.web_application_exception import WebApplicationException
 
 
 class Helper():

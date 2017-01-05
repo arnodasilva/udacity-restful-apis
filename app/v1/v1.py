@@ -5,8 +5,8 @@ from app.v1.dates.controllers import DatesAPI, DateAPI
 from app.v1.proposals.controllers import ProposalsAPI, ProposalAPI
 from app.v1.requests.controllers import RequestsAPI, RequestAPI
 from app.v1.users.controllers import UserAPI, UsersAPI
-from app.v1.utils.helper import Helper
-from web_application_exception import WebApplicationException
+from app.v1.utils.errors.web_application_exception import WebApplicationException
+from app.v1.utils.helpers import Helper
 
 API_VERSION_V1 = 1
 API_VERSION = API_VERSION_V1

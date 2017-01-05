@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-from app.v1.utils.database_provider import Base
+from app.v1.utils.database.database_provider import Base
 
 
 class Request(Base):
