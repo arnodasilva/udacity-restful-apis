@@ -119,7 +119,7 @@ class Proposal(Base):
         }
 
 
-class MealDate(Base):
+class Date(Base):
     __tablename__ = 'mealdate'
 
     def __iter__(self):
