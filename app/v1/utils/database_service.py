@@ -3,7 +3,11 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
 
-from models import Base, User, Request, Proposal, Date
+from app.v1.dates.models import Date
+from app.v1.proposals.models import Proposal
+from app.v1.requests.models import Request
+from app.v1.users.models import User
+from app.v1.utils.database_provider import Base
 from web_application_exception import WebApplicationException
 
 engine = create_engine('sqlite:///meetneat.db')
