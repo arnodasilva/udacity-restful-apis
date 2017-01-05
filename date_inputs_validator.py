@@ -21,5 +21,5 @@ schema = {
 }
 
 
-class MealDateInputsValidator(Inputs):
+class DateInputsValidator(Inputs):
     json = [JsonSchema(schema=schema)]
