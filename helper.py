@@ -25,3 +25,9 @@ class Helper():
         except TypeError as e:
             description = e.message[1:]
             raise WebApplicationException('Validation error', description, status_code=400)
+
+    @staticmethod
+    def validateConstraints(validatorName, request):
+        inputs = validatorName(request)
+        if not inputs.validate():
+            raise WebApplicationException('Validation error', inputs.errors, status_code=400)
