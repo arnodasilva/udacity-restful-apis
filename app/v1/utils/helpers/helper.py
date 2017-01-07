@@ -1,3 +1,4 @@
+from flask import current_app
 from flask import json, jsonify
 from flask import make_response
 
@@ -24,10 +25,12 @@ class Helper():
             return className(**json.loads(data))
         except TypeError as e:
             description = e.message[1:]
+            current_app.logger.error(e.message)
             raise WebApplicationException('Validation error', description, status_code=400)
 
     @staticmethod
     def validateConstraints(validatorName, request):
         inputs = validatorName(request)
         if not inputs.validate():
+            current_app.logger.error(inputs.errors)
             raise WebApplicationException('Validation error', inputs.errors, status_code=400)

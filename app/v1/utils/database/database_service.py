@@ -1,3 +1,4 @@
+from flask import current_app
 from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
@@ -25,7 +26,8 @@ class DatabaseService:
     def getUser(user_id):
         try:
             return session.query(User).filter_by(id=user_id).one()
-        except NoResultFound:
+        except NoResultFound as e:
+            current_app.logger.error(e.message)
             raise WebApplicationException('Resource not found',
                                           'The user resource with the id %d does not exist' % user_id,
                                           status_code=404)
@@ -37,8 +39,9 @@ class DatabaseService:
             session.commit()
             session.refresh(user)
             return user
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError)as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Validation error.',
                                           'A validation constraint has not been respected',
                                           status_code=400)
@@ -50,8 +53,9 @@ class DatabaseService:
                 session.query(User).filter_by(id=user_id).update(dict(user_update))
                 session.commit()
                 return DatabaseService.getUser(user_id)
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError)as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Validation error.',
                                           'A validation constraint has not been respected',
                                           status_code=400)
@@ -62,8 +66,9 @@ class DatabaseService:
             if DatabaseService.getUser(user_id):
                 session.query(User).filter_by(id=user_id).delete()
                 session.commit()
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError)as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -76,7 +81,8 @@ class DatabaseService:
     def getRequest(request_id):
         try:
             return session.query(Request).filter_by(id=request_id).one()
-        except NoResultFound:
+        except NoResultFound as e:
+            current_app.logger.error(e.message)
             raise WebApplicationException('Resource not found',
                                           'The request resource with the id %d does not exist' % request_id,
                                           status_code=404)
@@ -89,8 +95,9 @@ class DatabaseService:
                 session.commit()
                 session.refresh(request)
                 return request
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -103,8 +110,9 @@ class DatabaseService:
                 session.query(Request).filter_by(id=request_id).update(dict(request_update))
                 session.commit()
                 return DatabaseService.getRequest(request_id)
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -115,8 +123,9 @@ class DatabaseService:
             if DatabaseService.getRequest(request_id):
                 session.query(Request).filter_by(id=request_id).delete()
                 session.commit()
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -129,7 +138,8 @@ class DatabaseService:
     def getProposal(proposal_id):
         try:
             return session.query(Proposal).filter_by(id=proposal_id).one()
-        except NoResultFound:
+        except NoResultFound as e:
+            current_app.logger.error(e.message)
             raise WebApplicationException('Resource not found',
                                           'The proposal resource with the id %d does not exist' % proposal_id,
                                           status_code=404)
@@ -144,8 +154,9 @@ class DatabaseService:
                 session.commit()
                 session.refresh(proposal)
                 return proposal
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -159,8 +170,9 @@ class DatabaseService:
                     and DatabaseService.getUser(proposal_update.user_proposed_from):
                 session.query(Proposal).filter_by(id=proposal_id).update(dict(proposal_update))
                 session.commit()
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -171,8 +183,9 @@ class DatabaseService:
             if DatabaseService.getProposal(proposal_id):
                 session.query(Request).filter_by(id=proposal_id).delete()
                 session.commit()
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -185,7 +198,8 @@ class DatabaseService:
     def getDate(date_id):
         try:
             return session.query(Date).filter_by(id=date_id).one()
-        except NoResultFound:
+        except NoResultFound as e:
+            current_app.logger.error(e.message)
             raise WebApplicationException('Resource not found',
                                           'The mealdate resource with the id %d does not exist' % date_id,
                                           status_code=404)
@@ -199,8 +213,9 @@ class DatabaseService:
                 session.commit()
                 session.refresh(date)
                 return date
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -213,8 +228,9 @@ class DatabaseService:
                     and DatabaseService.getUser(date_update.user_2):
                 session.query(Date).filter_by(id=date_id).update(dict(date_update))
                 session.commit()
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
@@ -225,8 +241,9 @@ class DatabaseService:
             if DatabaseService.getDate(date_id):
                 session.query(Date).filter_by(id=date_id).delete()
                 session.commit()
-        except (TypeError, IntegrityError):
+        except (TypeError, IntegrityError) as e:
             session.rollback()
+            current_app.logger.error(e.message)
             raise WebApplicationException('Internal Server Error',
                                           'If the problem persists, please contact the developer for assistance',
                                           status_code=500)
